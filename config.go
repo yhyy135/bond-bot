@@ -6,10 +6,8 @@ import (
 )
 
 type Config struct {
-	Token  string `json:"token"`
-	ChatId int64  `json:"chat_id"`
-	Hour   int    `json:"hour"`
-	Minute int    `json:"minute"`
+	Token  string  `json:"token"`
+	ChatId []int64 `json:"chat_id"`
 }
 
 func (config *Config) ReadConfig(path string) error {
