@@ -38,14 +38,15 @@ func BondFilter(data any) string {
 	}(data), &bonds)
 
 	var today, tomorrow []string
+	var timezone, _ = time.LoadLocation("Asia/Shanghai")
 	for _, v := range bonds.Result.Data {
 		// 匹配今天
-		if v.Date == time.Now().Format("2006-01-02")+" 00:00:00" {
+		if v.Date == time.Now().In(timezone).Format("2006-01-02")+" 00:00:00" {
 			today = append(today, "🆕 "+v.Name+"("+v.Code+") 🔝"+v.Rating+"\n")
 		}
 
 		// 匹配明天
-		if v.Date == time.Now().Add(time.Hour*24).Format("2006-01-02")+" 00:00:00" {
+		if v.Date == time.Now().In(timezone).Add(time.Hour*24).Format("2006-01-02")+" 00:00:00" {
 			tomorrow = append(tomorrow, "🆕 "+v.Name+"("+v.Code+") 🔝"+v.Rating+"\n")
 		}
 	}
